@@ -4,25 +4,15 @@ author: "Jasmine Kobayashi"
 format: html
 ---
 ```{r , message=FALSE, warning=FALSE}
-library(stats)  ## for dist
-#https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/dist
-
-## There are many clustering libraries
-#install.packages("NbClust")
+library(stats)  
 library(NbClust)
 library(cluster)
 library(mclust)
-
 library(amap)  ## for using Kmeans (notice the cap K)
-
 library(factoextra) ## for cluster vis, silhouette, etc.
 library(purrr)
-
-#install.packages("stylo")
 library(stylo)  ## for dist.cosine
-#install.packages("philentropy")
 library(philentropy)  ## for distance() which offers 46 metrics
-## https://cran.r-project.org/web/packages/philentropy/vignettes/Distances.html
 library(SnowballC)
 library(caTools)
 library(dplyr)
