@@ -57,7 +57,7 @@ def build_noaa_df(startdate,enddate,dsid='GSOY'):
 
 # %%
 def type_df_dict(noaa_df):
-    dfs = {i:noaa_df[noaa_df['datatype']==i] for i in noaa_df['datatype'].unique()}
+    dfs = {i:noaa_df[['date','value']][noaa_df['datatype']==i] for i in noaa_df['datatype'].unique()}
     return dfs
 
 
