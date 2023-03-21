@@ -3,13 +3,13 @@
 Created on Fri Feb  3 17:39:36 2023
 @author: rokka
 """
-# %% Import Libraries
+# %% Import Libraries------------------------------------------------------------------------------------------------------------
 import requests
 import pandas as pd
 from datetime import datetime, timedelta
 import os,sys
 
-# %% code to import my own python files outside cwd
+# %% code to import my own python files outside cwd------------------------------------------------------------------------------
 path = os.path.abspath(os.path.join(os.path.dirname(__file__),'..'))
 sys.path.append(path)
 
@@ -17,7 +17,7 @@ sys.path.append(path)
 # tokens while still hiding them from the publicly available code) 
 # this is a file is only on my local system
 from JKeys import my_key
-# %% Request data from API and create dataframe if possible
+# %% Request data from API and create dataframe if possible======================================================================
 def noaa_req(startdate,enddate,dsid='GSOY'):
     url = 'https://www.ncei.noaa.gov/cdo-web/api/v2/data'
     
@@ -36,7 +36,7 @@ def noaa_req(startdate,enddate,dsid='GSOY'):
         except:
             return pd.DataFrame()
 
-# %% Build a dataframe for a range of dates using function above        
+# %% Build a dataframe for a range of dates using function above=================================================================
 def build_noaa_df(startdate,enddate,dsid='GSOY'):
     '''
     function to concat individual NOAA data request dfs to build a full df of NOAA API data 
@@ -60,12 +60,12 @@ def build_noaa_df(startdate,enddate,dsid='GSOY'):
 
 
 
-# %% Create a dictionary of dataframes by 'datatype'
+# %% Create a dictionary of dataframes by 'datatype'=============================================================================
 def type_df_dict(noaa_df):
     dfs = {i:noaa_df[['date','value']][noaa_df['datatype']==i] for i in noaa_df['datatype'].unique()}
     return dfs
 
-# %% create a "final" dataframe with all datatypes as columns and retain information like 'date' and 'station'
+# %% create a "final" dataframe with all datatypes as columns and retain information like 'date' and 'station'===================
 def type_by_station(noaa_df):
     
     # initialize empty list of station dataframes
@@ -101,11 +101,11 @@ def type_by_station(noaa_df):
     return final_df
 
 
-# %% test functions
+# %% test functions==============================================================================================================
 # sample_df = build_noaa_df('1763-01-01','1990-01-01')
 # sample_dict = type_df_dict(sample_df)
 
-# %% The final time-range of data I want
+# %% The final time-range of data I want=========================================================================================
 full_request_df = build_noaa_df('1763-01-01','2022-01-01')
 final_df = type_by_station(full_request_df.drop_duplicates())
 
