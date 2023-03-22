@@ -1,0 +1,161 @@
+---
+title: "Association Rule Mining Examples"
+author: "Dr. Gates"
+format: html
+toc: true
+---
+
+
+This example will use the Apriori Alg.
+
+To perform Association Rule Mining, transaction data is needed. 
+MANY libraries will also be required... 
+
+To perform association rule mining, you must have transaction data AND you must create a datafile that presents that data in whatever way your library expects. I will use *basket* here.
+
+
+TO GET this code to work and to get arulesViz to work - 
+you wil have to carefully and patiently do the following:
+
+# Install packages
+**Do these installs once:**
+```{r package installation (if needed)}
+## install.packages("arules")
+## For arulesViz to work on R version 3.5.x, you will
+## need to first go through an installation of RTools. 
+## See HOW TO above.
+## Next - once the RTools exe has been downloaded and installed
+## per the instructions, then, do these install.packages here in RStudio:
+#install.packages("TSP")
+#install.packages("data.table")
+## NOTE: If you are asked if you want to INSTALL FROM SOURCE - click YES!
+#install.packages("arulesViz", dependencies = TRUE)
+## IMPORTANT ## arules ONLY grabs rules with ONE item on the right
+## install.packages("sp")
+## NOTE R V3.5.0 does not use the older
+## datasets packages
+## install.packages("datasets.load") - not used here
+## install.packages("ggplot2") - not used here
+
+## install.packages("dplyr", dependencies = TRUE)
+## install.packages("purrr", dependencies = TRUE)
+## install.packages("devtools", dependencies = TRUE)
+## install.packages("tidyr")
+```
+```{r import libraries, results='hide',message=FALSE}
+library(viridis)
+library(arules)
+library(TSP)
+library(data.table)
+#library(ggplot2)
+#library(Matrix)
+library(tcltk)
+library(dplyr)
+library(devtools)
+library(purrr)
+library(tidyr)
+## DO THIS ONCE
+## FIRST - you MUST register and log into github
+## install_github("mhahsler/arulesViz")
+## RE: https://github.com/mhahsler/arulesViz
+```
+## In case of `arules` error
+
+this is a chunk of code that 99% of time works for the professor whenever code breaks from `arules`
+```{r in case of arules error,echo=TRUE,eval=FALSE}
+## IF YOUR CODE BREAKS - TRY THIS
+
+## Error in length(obj) : Method length not implemented for class rules 
+## DO THIS: 
+## (1) 
+detach("package:arulesViz", unload=TRUE)
+## (2) 
+detach("package:arules", unload=TRUE)
+## (3) 
+library(arules)
+## (4) 
+library(arulesViz)
+```
+```{r}
+## To see if you have tcltk run this on the console...
+# capabilities()["tcltk"]
+library(arulesViz)
+```
+
+```{r set working directory, eval=FALSE}
+## YOUR working dir goes here...
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
+# JK note: in this case I set the wd to the current file source location
+```
+
+
+```{r}
+NOAADataType <- read.transactions("single_data.csv",
+                                rm.duplicates = FALSE, 
+                                format = "single",  ##if you use "single" also use cols=c(1,2)
+                                sep=",",  ## csv file
+                                cols=c(1,2)) ## The dataset HAS row numbers
+# inspect(FoodsKumar)
+```
+## Use apriori to get the RULES
+```{r}
+
+FrulesK = arules::apriori(NOAADataType, parameter = list(support=.35, 
+                                                       confidence=.5, minlen=2))
+inspect(FrulesK)
+```
+### Plot of which items are most frequent
+```{r}
+itemFrequencyPlot(FoodsKumar, topN=20, type="absolute")
+```
+
+### Sort rules by a measure such as conf, sup, or lift
+```{r}
+SortedRulesK <- sort(FrulesK, by="support", decreasing=TRUE)
+inspect(SortedRulesK[1:15])
+(summary(SortedRulesK))
+```
+## Selecting rules with LHS specified
+```{r}
+Rules1 <- apriori(data=NOAADataType,parameter = list(supp=.001, conf=.01, minlen=2),
+                      appearance = list(default="rhs", lhs="DP10"),
+                      control=list(verbose=FALSE))
+Rules1 <- sort(Rules1, decreasing=TRUE, by="lift")
+inspect(Rules1[1:15])
+```
+
+## Selecting or targeting specific rules  RHS
+```{r}
+Rules2 <- apriori(data=NOAADataType,parameter = list(supp=.001, conf=.01, minlen=2),
+                     appearance = list(default="lhs", rhs="SNOW"),
+                     control=list(verbose=FALSE))
+Rules2 <- sort(Rules2, decreasing=TRUE, by="confidence")
+inspect(Rules2[1:4])
+```
+## Selecting rules with LHS specified
+```{r}
+Rules3 <- apriori(data=NOAADataType,parameter = list(supp=.001, conf=.01, minlen=2),
+                      appearance = list(default="rhs", lhs="DP10"),
+                      control=list(verbose=FALSE))
+Rules3 <- sort(Rules3, decreasing=TRUE, by="support")
+inspect(Rules3[1:4])
+```
+## Visualize
+tcltk
+```{r}
+subrulesK <- head(sort(SortedRulesK, by="lift"),10)
+plot(subrulesK)
+
+plot(subrulesK, method="graph", engine="interactive")
+```
+## Visualize
+tcltk
+```{r}
+subrules <- head(sort(SortedRulesK, by="lift"),10)
+plot(subrules)
+
+#plot(subrules, method="graph", engine="interactive")
+plot(subrules, method="graph", engine="htmlwidget")
+```
+
+
