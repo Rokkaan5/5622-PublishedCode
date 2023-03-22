@@ -1,0 +1,118 @@
+---
+title: "R-NaiveBayes"
+author: "Jasmine Kobayashi"
+format: html
+---
+
+```{r libraries, warning=FALSE,message=FALSE}
+library(tm)
+#install.packages("tm")
+library(stringr)
+library(wordcloud)
+# ONCE: install.packages("Snowball")
+## NOTE Snowball is not yet available for R v 3.5.x
+## So I cannot use it  - yet...
+##library("Snowball")
+##set working directory
+## ONCE: install.packages("slam")
+library(slam)
+library(quanteda)
+## ONCE: install.packages("quanteda")
+## Note - this includes SnowballC
+library(SnowballC)
+library(arules)
+##ONCE: install.packages('proxy')
+library(proxy)
+library(cluster)
+library(stringi)
+library(proxy)
+library(Matrix)
+library(tidytext) # convert DTM to DF
+library(plyr) ## for adply
+library(ggplot2)
+library(factoextra) # for fviz
+library(mclust) # for Mclust EM clustering
+
+library(naivebayes)
+#Loading required packages
+#install.packages('tidyverse')
+library(tidyverse)
+#install.packages('ggplot2')
+library(ggplot2)
+#install.packages('caret')
+library(caret)
+#install.packages('caretEnsemble')
+library(caretEnsemble)
+#install.packages('psych')
+library(psych)
+#install.packages('Amelia')
+library(Amelia)
+#install.packages('mice')
+library(mice)
+#install.packages('GGally')
+library(GGally)
+library(e1071)
+```
+
+```{r load data}
+df <- read.csv("temp-classification-test2.csv")
+```
+
+```{r label vs data}
+# suggested label columns
+#label_cols <-  c('EMXP','PRCP')
+class_label_col <- c('TAVG_label')#,'TMAX_label','TMIN_label')
+# data columns
+data_cols  <-  c('co2','co2_per_capita','co2_growth_abs','coal_co2','coal_co2_per_capita')
+# change class label to factor datatype
+df$TAVG_label <- as.factor(df$TAVG_label)
+
+
+## selecting columns of data
+# data <- df %>% select(all_of(data_cols))
+# labels <- df %>% select(all_of(label_cols))
+```
+
+```{r sampling for test train data}
+set.seed(123) # seed for consistency and reproducibility
+
+# Testing data size
+(Size <- (as.integer(nrow(df)*0.2)))  ## Test will be 20% of the data
+# testing data
+(SAMPLE <- sample(nrow(df), Size))
+```
+
+```{r testing and training data}
+(test_df <-df[SAMPLE, ])
+
+(train_df <-df[-SAMPLE, ])
+```
+
+
+```{r training testing X & y}
+X_train <- train_df %>% select(all_of(data_cols))
+y_train <- train_df %>% select(all_of(class_label_col))
+X_test <- test_df %>% select(all_of(data_cols))
+y_test <- test_df %>% select(all_of(class_label_col))
+```
+
+
+```{r}
+table(y_train$TAVG_label)
+```
+
+```{r}
+table(y_test$TAVG_label)
+```
+
+```{r}
+(NB_e1071<-naiveBayes(X_train, y_train, laplace = 4))
+```
+
+```{r}
+NB_e1071_Pred <- predict(NB_e1071, X_test)
+table(NB_e1071_Pred,y_test$TAVG_label)
+```
+```{r confusion matrix2}
+caret::confusionMatrix(NB_e1071_Pred,y_test$TAVG_label)
+```
