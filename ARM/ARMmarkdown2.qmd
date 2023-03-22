@@ -1,10 +1,10 @@
 ---
 title: "Association Rule Mining Examples"
-author: "Dr. Gates"
 format: html
 toc: true
 ---
 
+This is code provided by Professor Ami Gates (also found on her [website](https://gatesboltonanalytics.com/))
 
 This example will use the Apriori Alg.
 
