@@ -1,0 +1,12 @@
+---
+title: "Association Rule Mining (ARM) - Math"
+author: Jasmine Kobayashi
+format: html
+toc: true
+---
+
+---
+
+**Disclaimer:** I do these explanations as a form of "output" as part of my own learning process. (Because explaining is also an important part of the learning process.) Therefore, I'm creating these as I am learning about them, and I'm writing as how I understand them. But because I'm still only just learning about them, I don't have confidence these are completely free of errors. (I'm pointing this out as this page is accessible to the public.) 
+---
+

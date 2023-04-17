@@ -1,0 +1,39 @@
+---
+title: "Support Vector Machines"
+author: Jasmine Kobayashi
+format: html
+toc: true
+---
+
+---
+
+**Disclaimer:** I do these explanations as a form of "output" as part of my own learning process. (Because explaining is also an important part of the learning process.) Therefore, I'm creating these as I am learning about them, and I'm writing as how I understand them. But because I'm still only just learning about them, I don't have confidence these are completely free of errors. (I'm pointing this out as this page is accessible to the public.) 
+---
+
+# Overview
+SVM models are classification models that, in short, linearly separate data into two classes. A relatively simple-sounding goal, but there's quite a bit that goes into getting a model to do this, and even more if the data isn't already separable in its original dimensions. 
+
+There are several components that go into how the model goes about accomplishing this. 
+
+- Optimization: maximize margin 
+    - while satisfying certain constraints
+- Transform data to a way it is linearly separable  (cast into higher dimensions)
+
+Tools used to do this:
+
+- Lagrangian multipliers
+- Kernel transformation functions
+    - (the result of) dot products2 between "data vectors" that may or may not be cast into higher dimensions
+
+**Overall Goal:**
+Linearly separate data to classify data into two classes.
+
+
+::: {#2D-visuals layout-ncol=2}
+
+![Figure 1](Capture1.PNG){#fig-simplecase}
+
+![Figure 2](Capture2.PNG){#fig-simplegoal}
+
+Simple 2D Case Example
+:::
