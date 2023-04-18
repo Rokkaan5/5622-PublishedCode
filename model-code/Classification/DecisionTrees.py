@@ -36,7 +36,7 @@ data_cols = ['co2','co2_per_capita','co2_growth_abs','coal_co2','coal_co2_per_ca
 
 
 # %% Classification training and testing set=====================================================================================
-X_train,X_test,y_train,y_test = train_test_dataframes(df,data_cols,class_label_col[0],test_size=0.3)
+X_train,X_test,y_train,y_test = train_test_dataframes(df,data_cols,class_label_col[0],test_size=0.3,scale=True)
 
 # %%
 classDT = DecisionTreeClassifier(splitter='best')  # default is 'best', (only way I know to change is using 'random')
