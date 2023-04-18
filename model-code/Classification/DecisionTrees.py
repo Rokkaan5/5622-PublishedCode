@@ -21,6 +21,9 @@ from sklearn.tree import export_graphviz
 from IPython.display import Image  
 
 import pydotplus
+
+# my own code
+from JK_preprocessing import train_test_dataframes
 # %%
 df = pd.read_csv('temp-classification-test2.csv')
 
@@ -31,37 +34,6 @@ class_label_col = ['TAVG_label','TMAX_label','TMIN_label']
 # data columns
 data_cols = ['co2','co2_per_capita','co2_growth_abs','coal_co2','coal_co2_per_capita']
 
-
-# %%
-def train_test_dataframes(df,features,targets,split_type='random',test_size=0.2):
-    
-    X_col = features
-    y_col = targets
-    #--------------------------------------------------------------------------------------------------------------- 
-    
-    X = df[X_col]
-    y = df[y_col]
-    
-    # Training-Test Split=====================================================
-    #(Random) Train-Test Split-----------------------------------------------
-    X_train,X_test,y_train,y_test = train_test_split(X,y,test_size= test_size,random_state=123)
-    split = 'Random split'
-        
-    # (Sequential) Train-Test Split------------------------------------------
-    if split_type == 'sequential':
-    
-        train_size = 1-test_size
-        
-        X_train = X[:int(train_size*len(X))]   #values up to % indicated by train_size
-        X_test = X[int(train_size*len(X)):]    #remaining sequential values from X
-        y_train = y[:int(train_size*len(y))]
-        y_test = y[int(train_size*len(y)):]
-        
-        split = 'Sequential split'
-    # Print split type--------------------------------------------------------
-    print('Train-Test split was:', split)
-    
-    return X_train,X_test,y_train,y_test
 
 # %% Classification training and testing set=====================================================================================
 X_train,X_test,y_train,y_test = train_test_dataframes(df,data_cols,class_label_col[0],test_size=0.3)
@@ -87,6 +59,7 @@ from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 cm = confusion_matrix(y_test, DT_pred, labels=classDT.classes_)
 disp = ConfusionMatrixDisplay(confusion_matrix=cm,display_labels=classDT.classes_)                         
 disp.plot()
+plt.xticks(rotation=45)
 plt.show()
 
 # %% Regressions training and testing set========================================================================================
