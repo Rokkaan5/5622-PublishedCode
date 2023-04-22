@@ -33,7 +33,7 @@ Linearly separate data to classify data into two classes.
 
 ![Simple 2D case](Capture1.PNG){#fig-simplecase}
 
-![Linear separation of simple case](Capture2.PNG){#fig-simplegoal}
+![General idea for visual reference of SVM goal to linearly separate a simple 2D case](Capture2.PNG){#fig-simplegoal}
 
 Simple 2D Case Example from Dr. Gates' SVM slides
 :::
