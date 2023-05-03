@@ -12,4 +12,6 @@ NOAA API Climate Data:
 - [Website](https://www.google.com/url?q=https%3A%2F%2Fwww.ncdc.noaa.gov%2Fcdo-web%2F&sa=D)
 - URL endpoint: <www.ncei.noaa.gov/cdo-web/api/v2/data>
 
-GitHub repo for OurWorldInData data (greenhouse gas data): <https://www.google.com/url?q=https%3A%2F%2Fgithub.com%2Fowid%2Fco2-data&sa=D>
+OurWorldInData data (greenhouse gas data): 
+- [GitHub Repo](https://github.com/owid/co2-data) (main data source for this project; also has codebook for detailed information about data)
+- [Webpage](https://ourworldindata.org/co2-and-other-greenhouse-gas-emissions) (for more info)
