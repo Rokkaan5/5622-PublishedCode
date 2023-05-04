@@ -6,7 +6,7 @@ Link to project main webpage: <https://sites.google.com/view/jasmine-kobayashi/p
 
 # Code and Data
 The main function of this repo is to allow reproducibility of the coding done for this project; however, it's not to serve as an external source of data. Please obtain all initial (raw) data from the initial data sources (listed in section below).
-In other words, there are no data files published to this repo but all data should be reproducible by cloning the code for this repo, obtaining the initial raw data from the initial data source, and then running all relevant code. 
+In other words, there are no data files published to this repo but all data should be reproducible by cloning the code for this repo, obtaining the initial raw data from the initial data source, and then running all relevant code. (Not quite ready at the moment (May 2023))
 
 (Data acquisition of API data requires to utilize your own API key/token(s), see the code comments for more info.)
 
