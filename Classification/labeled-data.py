@@ -10,8 +10,8 @@ import numpy as np
 import pandas as pd
 
 # %%
-data = pd.read_csv('owid_JK_all_selected_ghg_data.csv')
-temp = pd.read_csv('NOAA-temp-classification-label.csv')
+data = pd.read_csv('../data/ourworldindata/owid_JK_all_selected_ghg_data.csv')
+temp = pd.read_csv('../data/API-NOAA/NOAA-temp-classification-label.csv')
 
 # %%
 
