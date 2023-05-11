@@ -12,7 +12,7 @@ from sklearn.cluster import KMeans
 from sklearn.metrics import silhouette_samples, silhouette_score
 
 # %% data
-clust_df = pd.read_csv('1990-2018_df.csv')
+clust_df = pd.read_csv('../data/API-NOAA/1990-2018_df.csv')
 
 
 # %% different k values
