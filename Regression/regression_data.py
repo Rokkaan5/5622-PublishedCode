@@ -13,8 +13,8 @@ import seaborn as sns
 import pickle
 
 # %%
-noaa_df = pd.read_csv('NOAA-FINAL-DF.csv')
-owid_df = pd.read_csv('owid_JK_all_selected_ghg_data.csv')
+noaa_df = pd.read_csv('../data/API-NOAA/NOAA-FINAL-DF.csv')
+owid_df = pd.read_csv('../data/ourworldindata/owid_JK_all_selected_ghg_data.csv')
 
 # %%
 sort_df = noaa_df.sort_values(by='year')
