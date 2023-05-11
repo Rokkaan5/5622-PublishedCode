@@ -4,7 +4,7 @@ format: html
 toc: true
 ---
 
-This is code provided by Professor Ami Gates (also found on her [website](https://gatesboltonanalytics.com/))
+**Most of this is code provided by Professor Ami Gates** just using different data (also found on her [website](https://gatesboltonanalytics.com/))
 
 This example will use the Apriori Alg.
 
@@ -90,7 +90,7 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
 
 ```{r}
-NOAADataType <- read.transactions("single_data.csv",
+NOAADataType <- read.transactions("../data/API-NOAA/single_data.csv",
                                 rm.duplicates = FALSE, 
                                 format = "single",  ##if you use "single" also use cols=c(1,2)
                                 sep=",",  ## csv file
@@ -106,7 +106,7 @@ inspect(FrulesK)
 ```
 ### Plot of which items are most frequent
 ```{r}
-itemFrequencyPlot(FoodsKumar, topN=20, type="absolute")
+itemFrequencyPlot(NOAADataType, topN=20, type="absolute")
 ```
 
 ### Sort rules by a measure such as conf, sup, or lift
